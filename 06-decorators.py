@@ -51,9 +51,6 @@ class PointType(TypeChecker):
 
 @type_check(center=PointType, radius=IntType)
 class Circle:
-    center = PointType('center')
-    radius = IntType('radius')
-
     def __init__(self, center, radius):
         self.center = center
         self.radius = radius
