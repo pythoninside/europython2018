@@ -1,5 +1,7 @@
 import ast
 
+# This could come from a variety of sources: not just text. For instance, we
+# could use inspect.get_source()
 CODE = """
 from dataclasses import dataclass
 
