@@ -29,33 +29,31 @@ def typed(cls):
     return cls
 
 
-@dataclass
 class Point:
     x: int
     y: int
 
 
 p = Point(1, 2)
-print(p)
+print(p, 'OK')
+print('---')
 p.x = 'foo'
-print(p)
+print(p, 'OK')
 """
 
 
 class DecorateClasses(ast.NodeTransformer):
     def visit_ClassDef(self, node):
-        if not [True for dec in node.decorator_list if dec.id == 'dataclass']:
-            # Not a dataclass
-            return node
-        dec = ast.Name(id='typed', ctx=ast.Load())
-        node.decorator_list.insert(0, dec)
+        # Only decorate classes with type annotations
+        if [True for n in node.body if isinstance(n, ast.AnnAssign)]:
+            dec = ast.Name(id='dataclass', ctx=ast.Load())
+            node.decorator_list.insert(0, dec)
+            dec = ast.Name(id='typed', ctx=ast.Load())
+            node.decorator_list.insert(0, dec)
         return node
 
 
 tree = ast.parse(CODE)
-exec(compile(tree, filename='', mode='exec'))
-
-print('---')
 tree = DecorateClasses().visit(tree)
 ast.fix_missing_locations(tree)
 exec(compile(tree, filename='', mode='exec'))
