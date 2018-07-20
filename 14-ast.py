@@ -21,7 +21,7 @@ class TypeChecker:
         instance.__dict__[self.name] = value
 
 
-def typed(cls):
+def type_check(cls):
     for var_name, var_type in cls.__annotations__.items():
         class Checker(TypeChecker):
             required_type = var_type

@@ -20,22 +20,14 @@ class IntType(TypeChecker):
     required_type = int
 
 
-def type_check(**kwargs):
-    def wrapper(cls):
-        for var_name, checker_class in kwargs.items():
-            setattr(cls, var_name, checker_class(var_name))
-        return cls
-    return wrapper
-
-
-def simple_type_check(cls):
+def type_check(cls):
     for var_name, checker in cls.__dict__.items():
         if isinstance(checker, TypeChecker):
             checker.name = var_name
     return cls
 
 
-@type_check(x=IntType, y=IntType)
+@type_check
 class Point:
     def __init__(self, x, y):
         self.x = x
@@ -56,7 +48,7 @@ class PointType(TypeChecker):
     required_type = Point
 
 
-@simple_type_check
+@type_check
 class Circle:
     center = PointType()
     radius = IntType()
