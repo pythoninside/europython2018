@@ -16,9 +16,13 @@ def check_type(name, required_type):
     return variable
 
 
+ensure_int = lambda name: check_type(name, int)             # noqa
+ensure_point = lambda name: check_type(name, Point)         # noqa
+
+
 class Point:
-    x = check_type('x', int)
-    y = check_type('y', int)
+    x = ensure_int('x')
+    y = ensure_int('y')
 
     def __init__(self, x, y):
         self.x = x
@@ -36,8 +40,8 @@ class Point:
 
 
 class Circle:
-    center = check_type('center', Point)
-    radius = check_type('radius', int)
+    center = ensure_point('center')
+    radius = ensure_int('radius')
 
     def __init__(self, center, radius):
         self.center = center
