@@ -5,7 +5,7 @@ class TypeChecker:
     required_type = object
 
     def __init__(self, name):
-        self.name = name
+        self.name = f'_{name}'
 
     def __get__(self, instance, owner=None):
         return instance.__dict__[self.name]
