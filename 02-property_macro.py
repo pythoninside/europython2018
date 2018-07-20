@@ -53,7 +53,3 @@ class Circle:
 
     def __repr__(self):
         return f'{self.__class__.__name__}({self.center!r}, {self.radius!r})'
-
-
-# Fewer lines of code!
-# Mind-bending?

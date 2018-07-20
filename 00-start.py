@@ -32,8 +32,3 @@ class Circle:
 
     def __repr__(self):
         return f'{self.__class__.__name__}({self.center!r}, {self.radius!r})'
-
-
-# What about this?
-# p = Point('1', '2')
-# p.move_by('10, '20')
