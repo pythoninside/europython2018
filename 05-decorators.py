@@ -23,12 +23,15 @@ class IntType(TypeChecker):
 def type_check(cls):
     for var_name, checker in cls.__dict__.items():
         if isinstance(checker, TypeChecker):
-            checker.name = var_name
+            checker.name = f'_{var_name}'
     return cls
 
 
 @type_check
 class Point:
+    x = IntType()
+    y = IntType()
+
     def __init__(self, x, y):
         self.x = x
         self.y = y
