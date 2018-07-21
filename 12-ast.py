@@ -48,7 +48,7 @@ class DecorateClasses(ast.NodeTransformer):
         if [True for n in node.body if isinstance(n, ast.AnnAssign)]:
             dec = ast.Name(id='dataclass', ctx=ast.Load())
             node.decorator_list.insert(0, dec)
-            dec = ast.Name(id='typed', ctx=ast.Load())
+            dec = ast.Name(id='type_check', ctx=ast.Load())
             node.decorator_list.insert(0, dec)
         return node
 
