@@ -33,7 +33,7 @@ class TypeCheckMeta(type):
 
 
 class Base(metaclass=TypeCheckMeta):
-    __annotations__ = {}
+    pass
 
 
 class Point(Base):
