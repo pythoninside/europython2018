@@ -1,5 +1,6 @@
 from dataclasses import dataclass
 from math import pi
+import typing
 
 
 class TypeChecker:
@@ -20,7 +21,7 @@ class TypeChecker:
 def typed_dataclass(cls):
     cls = dataclass(cls)
 
-    for var_name, var_type in cls.__annotations__.items():
+    for var_name, var_type in typing.get_type_hints(cls).items():
         class Checker(TypeChecker):
             required_type = var_type
 
@@ -35,7 +36,7 @@ class TypeCheckMeta(type):
 
 
 class Base(metaclass=TypeCheckMeta):
-    __annotations__ = {}
+    pass
 
 
 class Point(Base):

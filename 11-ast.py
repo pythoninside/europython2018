@@ -1,4 +1,5 @@
 import ast
+import typing
 
 # This could come from a variety of sources: not just text. For instance, we
 # could use inspect.get_source()
@@ -22,7 +23,7 @@ class TypeChecker:
 
 
 def type_check(cls):
-    for var_name, var_type in cls.__annotations__.items():
+    for var_name, var_type in typing.get_type_hints(cls).items():
         class Checker(TypeChecker):
             required_type = var_type
         setattr(cls, var_name, Checker(var_name))
