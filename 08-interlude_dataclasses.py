@@ -1,9 +1,11 @@
+import typing
+
 def dataclass(cls):
     def __init__(self, *args, **kwargs):
-        for k, v in zip(cls.__annotations__.keys(), args):
+        for k, v in zip(typing.get_type_hints(cls).keys(), args):
             setattr(self, k, v)
         for k, v in kwargs.items():
-            if k not in cls.__annotations__:
+            if k not in typing.get_type_hints(cls):
                 raise TypeError(
                     f"__init__() got an unexpected keyword argument '{k}'"
                 )
@@ -14,7 +16,7 @@ def dataclass(cls):
             post_init()
 
     def __repr__(self):
-        kwargs = {k: getattr(self, k) for k in cls.__annotations__}
+        kwargs = {k: getattr(self, k) for k in typing.get_type_hints(cls)}
         kwstr = ', '.join([f'{k}={v}' for k, v in kwargs.items()])
         return f'{cls.__name__}({kwstr})'
 
